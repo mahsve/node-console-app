@@ -53,4 +53,10 @@ export class Tasks {
   deleteTask(id) {
     delete this.list[id]
   }
+
+  toggleTask(ids = []) {
+    Object.keys(this.list).forEach(key => {
+      this.list[key].completed = ids.includes(key) ? new Date().toLocaleString() : false
+    })
+  }
 }

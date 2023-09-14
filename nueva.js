@@ -32,6 +32,7 @@ const main = async () => {
 
       case 5:
         const ids = await toogleTask(tasks.allList)
+        tasks.toggleTask(ids)
         break;
 
       case 6:
