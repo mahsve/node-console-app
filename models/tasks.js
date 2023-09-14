@@ -49,4 +49,8 @@ export class Tasks {
     }
     console.log()
   }
+
+  deleteTask(id) {
+    delete this.list[id]
+  }
 }

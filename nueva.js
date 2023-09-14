@@ -1,4 +1,4 @@
-import { inquirerMenu, pauseMenu, dataInput } from './helpers/inquirer.js'
+import { mainMenu, pauseMenu, entryTask, deleteTask, toogleTask, confirmMenu } from './helpers/inquirer.js'
 import { Tasks } from './models/tasks.js';
 import { saveDB, readDB } from './helpers/saveDB.js'
 
@@ -10,11 +10,11 @@ const main = async () => {
   tasks.push(database)
 
   do {
-    opt = await inquirerMenu()
+    opt = await mainMenu()
 
     switch (opt) {
       case 1:
-        const desc = await dataInput('Tarea:')
+        const desc = await entryTask('Ingrese la tarea:')
         tasks.create(desc)
         break;
 
@@ -28,6 +28,18 @@ const main = async () => {
 
       case 4:
         tasks.consultConditional(false)
+        break;
+
+      case 5:
+        const ids = await toogleTask(tasks.allList)
+        break;
+
+      case 6:
+        const id = await deleteTask(tasks.allList)
+        if (id !== 0) {
+          const ok = await confirmMenu('¿Segudo desea eliminar esta tarea?')
+          if (ok) tasks.deleteTask(id)
+        }
         break;
     }
     saveDB(tasks.list)
